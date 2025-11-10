@@ -51,7 +51,7 @@ ash = { version = "0.38", optional = true }
 wgpu = { workspace = true, features = ["vulkan-portability"] }
 
 [target.'cfg(target_family = "windows")'.dependencies]
-openxr = { workspace = true, features = ["mint", "static"] }
+openxr = { workspace = true, features = ["mint"] }
 winapi = { version = "0.3.9", optional = true }
 
 [lints.clippy]

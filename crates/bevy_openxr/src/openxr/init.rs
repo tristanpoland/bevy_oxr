@@ -260,9 +260,6 @@ impl OxrInitPlugin {
         OxrEnabledExtensions,
         SessionGraphicsCreateInfo,
     )> {
-        #[cfg(windows)]
-        let entry = OxrEntry(openxr::Entry::linked());
-        #[cfg(not(windows))]
         let entry = OxrEntry(unsafe { openxr::Entry::load()? });
 
         #[cfg(target_os = "android")]
