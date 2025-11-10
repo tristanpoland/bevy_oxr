@@ -260,7 +260,16 @@ impl OxrInitPlugin {
         OxrEnabledExtensions,
         SessionGraphicsCreateInfo,
     )> {
-        let entry = OxrEntry(unsafe { openxr::Entry::load()? });
+        let entry = OxrEntry(unsafe { 
+            openxr::Entry::load().map_err(|e| {
+                error!("Failed to load OpenXR loader library. Make sure:");
+                error!("  1. SteamVR or Oculus software is installed");
+                error!("  2. The OpenXR runtime is set as active (check SteamVR settings)");
+                error!("  3. For SteamVR: Settings > OpenXR > Set SteamVR as OpenXR runtime");
+                error!("Original error: {:?}", e);
+                e
+            })? 
+        });
 
         #[cfg(target_os = "android")]
         entry.initialize_android_loader()?;
